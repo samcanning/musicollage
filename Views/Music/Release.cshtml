@@ -1,0 +1,20 @@
+@model Musicollage.Models.DisplayRelease
+@{
+    ViewData["Title"] = @Model.title;
+}
+<h2><a href='/artist/@Model.arid'>@Model.artist</a> - @Model.title</h2>
+<img src='@Model.image' width=250>
+@if(@Model.avg_rating == -1)
+{
+    <p style='color: gray'>Not yet rated</p>
+}
+else
+{
+    <p>@Model.avg_rating / 10.0 (@Model.ratings users)</p>
+}
+@if(ViewBag.logged)
+{
+    <br><br><form action='@Model.id/rate' method="post">
+        <input placeholder="@ViewBag.placeholder" type='number' max='10' min='0' step='0.1' name='rating'> <input type='submit' value='Rate'>
+    </form>
+}

@@ -1,0 +1,8 @@
+@model List<Musicollage.Models.DisplayRating>
+<h3>@ViewBag.name's ratings:</h3>
+@foreach(var x in Model)
+{
+    <img src='@x.image' width='100'>
+}
+<br><br><p><a href='/main/top3'>Top 3</a></p>
+<p><a href='/main/top5'>Top 5</a></p>

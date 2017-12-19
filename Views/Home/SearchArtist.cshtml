@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Results";
+}
+<h2>@ViewBag.count results for "@ViewBag.name":</h2>
+@foreach(var x in ViewBag.results)
+{
+    @if(x.disambiguation != null)
+    {
+        <p><a href="/artist/@x.id">@x.name</a> (@x.disambiguation)</p>
+    }
+    else
+    {
+        <p><a href="/artist/@x.id">@x.name</a></p>
+    }
+    
+    
+}

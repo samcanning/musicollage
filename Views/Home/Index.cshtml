@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div id="logreg">
+@Html.Partial("Partials/Register.cshtml")
+@Html.Partial("Partials/Login.cshtml")
+</div>
+<div class="search">
+    <h2>Search artist</h2>
+    <form action='search/artist' method='get'>
+    <input type='text' name='name'>
+    <input type='submit' value="search">
+    </form>
+</div>

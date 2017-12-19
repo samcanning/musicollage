@@ -1,0 +1,25 @@
+<h2>@ViewBag.artist.name</h2>
+@if(@ViewBag.albums.Count > 0)
+{
+    <h3>Albums</h3>
+    @foreach(var r in ViewBag.albums)
+    {
+        <p><a href='/release/@r.id'>@r.title</a> (@r.date)</p>
+    }
+}
+@if(@ViewBag.eps.Count > 0)
+{
+    <h3>EPs</h3>
+    @foreach(var r in ViewBag.eps)
+    {
+        <p><a href='/release/@r.id'>@r.title</a> (@r.date)</p>
+    }
+}
+@if(@ViewBag.live.Count > 0)
+{
+    <h3>Live</h3>
+    @foreach(var r in ViewBag.live)
+    {
+        <p><a href='/release/@r.id'>@r.title</a> (@r.date)</p>
+    }
+}
