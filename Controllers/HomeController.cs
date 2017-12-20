@@ -81,6 +81,14 @@ namespace Musicollage.Controllers
         }
 
         [HttpGet]
+        [Route("search")]
+        public IActionResult Search(string name, string type)
+        {
+            if(type == "artist") return RedirectToAction("SearchArtist", new {name = name});
+            return RedirectToAction("SearchRelease", new {title = name});
+        }
+
+        [HttpGet]
         [Route("search/artist")]
         public IActionResult SearchArtist(string name)
         {
@@ -102,7 +110,7 @@ namespace Musicollage.Controllers
             ApiCaller.SearchReleaseName(title, r => {
                 result = (JObject)r;
             }).Wait();
-            ViewBag.title = title;
+            ViewBag.rTitle = title;
             ViewBag.count = result.SelectToken("count");
             ViewBag.results = result.SelectToken("release-groups");
             return View();

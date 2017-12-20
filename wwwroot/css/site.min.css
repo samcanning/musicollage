@@ -1,5 +1,31 @@
 body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;padding-right:15px}input,select,textarea{max-width:280px}.carousel-caption p{font-size:20px;line-height:1.4}.carousel-inner .item img[src$=".svg"]{width:100%}@media screen and (max-width:767px){.carousel-caption{display:none}}
 
-#logreg{
+#periodselect{
+    height: 26px;
+}
+
+.navbar-search{
     float: right;
+    position: relative;
+    top: 12px;
+    padding: 0px;
+}
+
+#searchbox{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none;
+    padding-left: 5px;
+}
+
+#searchsubmit{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+}
+
+.navbar-search select{
+    height: 22px;
+    border-top: none;
+    border-bottom: none;
 }

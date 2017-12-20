@@ -138,7 +138,7 @@ namespace Musicollage.Controllers
                     thisRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);
                 }
                 int user_id = (int)HttpContext.Session.GetInt32("id");
-                Rating thisRating = _context.Ratings.Where(r => r.id == user_id).SingleOrDefault(r => r.release_id == thisRelease.id);
+                Rating thisRating = _context.Ratings.Where(r => r.user_id == user_id).SingleOrDefault(r => r.release_id == thisRelease.id);
                 if(thisRating == null)
                 {
                     Rating newRating = new Rating()
