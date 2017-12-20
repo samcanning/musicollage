@@ -124,12 +124,15 @@ namespace Musicollage.Controllers
                     Release newRelease = new Release(){id_string = id};
                     string title = "";
                     string artist = "";
+                    string date = "";
                     ApiCaller.GetReleaseData(id, a => {
                         title = (string)(((JObject)a).SelectToken("title"));
                         artist = (string)((JObject)a).SelectToken("artist-credit").First.SelectToken("artist").SelectToken("name");
+                        date = (string)((JObject)a).SelectToken("first-release-date");
                     }).Wait();
                     newRelease.title = title;
                     newRelease.artist = artist;
+                    newRelease.date = date;
                     _context.Add(newRelease);
                     _context.SaveChanges();
                     thisRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);

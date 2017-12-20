@@ -1,0 +1,32 @@
+@model List<Musicollage.Models.DisplayRating>
+@if(ViewBag.period == null)
+{
+    <h2>@ViewBag.name's top @ViewBag.num</h2>
+}
+else
+{
+    <h2>@ViewBag.name's top @ViewBag.num of @ViewBag.period</h2>
+}
+@{
+    double imgWidth = 0;
+    if(ViewBag.num < 5)
+    {
+        imgWidth = 250;
+    }
+    else if(ViewBag.num < 10)
+    {
+        imgWidth = 200;
+    }
+    else
+    {
+        imgWidth = 150;
+    }
+}
+@foreach(var x in Model)
+{
+    <img src='@x.image' width='@imgWidth'>
+}
+@if(Model.Count < ViewBag.num)
+{
+    <p>@ViewBag.name has not rated enough albums!</p>
+}

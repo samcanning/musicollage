@@ -4,6 +4,7 @@ namespace Musicollage.Models
     {
         public string title {get;set;}
         public string release_id_string {get;set;}
+        public string release_date {get;set;}
         public string artist {get;set;}
         public string artist_id_string {get;set;}
         public decimal rating {get;set;}

@@ -1,8 +1,22 @@
 @model List<Musicollage.Models.DisplayRating>
-<h3>@ViewBag.name's ratings:</h3>
-@foreach(var x in Model)
-{
-    <img src='@x.image' width='100'>
-}
-<br><br><p><a href='/main/top3'>Top 3</a></p>
-<p><a href='/main/top5'>Top 5</a></p>
+<h3>Welcome, @ViewBag.name</h3>
+<p>View your top albums</p>
+<form action='/user/@ViewBag.name/top' method="get">
+    Top <input type='number' step='1' min='1' max='100' name="num"> albums of (optional)
+    <select name='from'>
+        <option selected value=""></option>
+        <option value='1960s'>60s</option>
+        <option value='1970s'>70s</option>
+        <option value='1980s'>80s</option>
+        <option value='1990s'>90s</option>
+        <option value='2000s'>00s</option>
+        <option value='2010s'>10s</option>
+    </select> <input type='submit'>
+</form>
+<div class="search">
+    <h2>Search artist</h2>
+    <form action='search/artist' method='get'>
+    <input type='text' name='name'>
+    <input type='submit' value="search">
+    </form>
+</div>
