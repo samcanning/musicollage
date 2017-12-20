@@ -1,0 +1,9 @@
+@{
+    ViewData["Title"] = "Results";
+}
+<h2>@ViewBag.count results for "@ViewBag.title":</h2>
+@foreach(var x in ViewBag.results)
+{
+    <p><a href="/artist/@x["artist-credit"][0].artist.id">@x["artist-credit"][0].artist.name</a> -
+    <a href="/release/@x.id">@x.releases[0].title</a></p>
+}

@@ -94,6 +94,20 @@ namespace Musicollage.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("search/release")]
+        public IActionResult SearchRelease(string title)
+        {
+            JObject result = new JObject();
+            ApiCaller.SearchReleaseName(title, r => {
+                result = (JObject)r;
+            }).Wait();
+            ViewBag.title = title;
+            ViewBag.count = result.SelectToken("count");
+            ViewBag.results = result.SelectToken("release-groups");
+            return View();
+        }
+
         [Route("logout")]
         public IActionResult Logout()
         {

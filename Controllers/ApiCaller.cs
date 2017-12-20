@@ -29,6 +29,24 @@ namespace Musicollage
                 System.Console.WriteLine(e.Message);
             }
         }
+        public static async Task SearchReleaseName(string title, Action<object> Callback)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://musicbrainz.org/ws/2/release-group/?query=release:{title}&fmt=json");
+                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
+                reader.Dispose();
+                response.Dispose();
+                Callback(result);
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+        }
         public static async Task GetArtistData(string id, Action<object> Callback)
         {
             try

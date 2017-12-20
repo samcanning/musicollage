@@ -1,7 +1,0 @@
-@model List<Musicollage.Models.DisplayRating>
-<h3>@ViewBag.name's ratings:</h3>
-@foreach(var x in Model)
-{
-    <img src='@x.image' width='100'>
-    <p>@x.artist - @x.title: @x.rating / 10.0</p>
-}

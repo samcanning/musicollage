@@ -1,7 +1,7 @@
 @{
     ViewData["Title"] = "Results";
 }
-<h2>@ViewBag.count results for "@ViewBag.name":</h2>
+<h2>@ViewBag.count results for "@ViewBag.title":</h2>
 @foreach(var x in ViewBag.results)
 {
     @if(x.disambiguation != null)

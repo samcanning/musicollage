@@ -13,10 +13,4 @@
         <option value='2010s'>10s</option>
     </select> <input type='submit'>
 </form>
-<div class="search">
-    <h2>Search artist</h2>
-    <form action='search/artist' method='get'>
-    <input type='text' name='name'>
-    <input type='submit' value="search">
-    </form>
-</div>
+@Html.Partial("Partials/Search.cshtml")
