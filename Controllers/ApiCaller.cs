@@ -16,7 +16,7 @@ namespace Musicollage
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://musicbrainz.org/ws/2/artist/?query=artist:{name}&fmt=json");
-                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                request.Headers["User-Agent"] = "Musicollage - samcanning@outlook.com";
                 HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
@@ -34,7 +34,7 @@ namespace Musicollage
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://musicbrainz.org/ws/2/release-group/?query=release:{title}&fmt=json");
-                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                request.Headers["User-Agent"] = "Musicollage - samcanning@outlook.com";
                 HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
@@ -52,7 +52,7 @@ namespace Musicollage
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://musicbrainz.org/ws/2/artist/{id}?inc=release-groups&fmt=json");
-                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                request.Headers["User-Agent"] = "Musicollage - samcanning@outlook.com";
                 HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
@@ -71,7 +71,7 @@ namespace Musicollage
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://musicbrainz.org/ws/2/release/?query=arid:{id}&fmt=json");
-                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                request.Headers["User-Agent"] = "Musicollage - samcanning@outlook.com";
                 HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
@@ -90,7 +90,7 @@ namespace Musicollage
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://musicbrainz.org/ws/2/release-group/{id}?inc=artists&fmt=json");
-                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                request.Headers["User-Agent"] = "Musicollage - samcanning@outlook.com";
                 HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
@@ -109,7 +109,7 @@ namespace Musicollage
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://coverartarchive.org/release-group/{id}");
-                request.Headers["User-Agent"] = "Test Application - samcanning@outlook.com";
+                request.Headers["User-Agent"] = "Musicollage - samcanning@outlook.com";
                 HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 object result = JsonConvert.DeserializeObject(reader.ReadToEnd());
