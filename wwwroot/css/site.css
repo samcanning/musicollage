@@ -35,3 +35,40 @@ textarea {
         display: none;
     }
 }
+
+#periodselect{
+    height: 26px;
+}
+
+.navbar-search{
+    float: right;
+    position: relative;
+    top: 12px;
+    padding: 0px;
+}
+
+#searchbox{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none;
+    padding-left: 5px;
+}
+
+#searchsubmit{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+}
+
+.navbar-search select{
+    height: 22px;
+    border-top: none;
+    border-bottom: none;
+}
+
+.recentrating{
+    display: inline-block;
+    vertical-align: top;
+    width: 150px;
+    margin: 10px;
+}

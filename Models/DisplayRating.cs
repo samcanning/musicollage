@@ -9,5 +9,6 @@ namespace Musicollage.Models
         public string artist_id_string {get;set;}
         public decimal rating {get;set;}
         public string image {get;set;}
+        public string rater {get;set;}
     }
 }

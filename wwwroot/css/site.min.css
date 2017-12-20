@@ -29,3 +29,14 @@ body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;paddin
     border-top: none;
     border-bottom: none;
 }
+/* 
+#recentratings{
+    padding: 15px;
+} */
+
+.recentrating{
+    display: inline-block;
+    vertical-align: top;
+    width: 150px;
+    margin: 10px;
+}

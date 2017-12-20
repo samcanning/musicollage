@@ -25,6 +25,33 @@ namespace Musicollage.Controllers
             return View();
         }
 
+        public List<DisplayRating> RecentRatings()
+        {
+            int user_id = (int)HttpContext.Session.GetInt32("id");
+            List<Rating> mostRecent = _context.Ratings.Where(r => r.user_id != user_id).ToList();
+            List<DisplayRating> recentDisplay = new List<DisplayRating>();
+            for(int i = mostRecent.Count - 1; i > 0 && i > mostRecent.Count - 6; i--)
+            {
+                Release thisRelease = _context.Releases.SingleOrDefault(r => r.id == mostRecent[i].release_id);
+                User thisRater = _context.Users.SingleOrDefault(u => u.id == mostRecent[i].user_id);
+                DisplayRating newDisplay = new DisplayRating()
+                {
+                    title = thisRelease.title,
+                    release_id_string = thisRelease.id_string,
+                    artist = thisRelease.artist,
+                    rating = mostRecent[i].rating,
+                    rater = thisRater.username
+                };
+                string imgString = "";
+                ApiCaller.GetArt(newDisplay.release_id_string, a => {
+                    imgString = (string)((JObject)a).SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
+                }).Wait();
+                newDisplay.image = imgString;
+                recentDisplay.Add(newDisplay);
+            }
+            return recentDisplay;
+        }
+
         [HttpPost]
         [Route("register")]
         public IActionResult Register(RegVal model)
@@ -129,28 +156,8 @@ namespace Musicollage.Controllers
             if(HttpContext.Session.GetInt32("id") == null) return RedirectToAction("Index");
             User loggedUser = _context.Users.SingleOrDefault(u => u.id == HttpContext.Session.GetInt32("id"));
             ViewBag.name = loggedUser.username;
-            List<DisplayRating> ratings = new List<DisplayRating>();
-            return View(ratings);
-        }
-
-        [Route("main/top3")]
-        public IActionResult Top3()
-        {
-            if(HttpContext.Session.GetInt32("id") == null) return RedirectToAction("Index");
-            User loggedUser = _context.Users.SingleOrDefault(u => u.id == HttpContext.Session.GetInt32("id"));
-            ViewBag.name = loggedUser.username;
-            List<DisplayRating> top3 = CreateList(3, (int)HttpContext.Session.GetInt32("id"), null);
-            return View("Main", top3);
-        }
-
-        [Route("main/top5")]
-        public IActionResult Top5()
-        {
-            if(HttpContext.Session.GetInt32("id") == null) return RedirectToAction("Index");
-            User loggedUser = _context.Users.SingleOrDefault(u => u.id == HttpContext.Session.GetInt32("id"));
-            ViewBag.name = loggedUser.username;
-            List<DisplayRating> top5 = CreateList(5, (int)HttpContext.Session.GetInt32("id"), null);
-            return View("Main", top5);
+            List<DisplayRating> recentRatings = RecentRatings();
+            return View(recentRatings);
         }
 
         [Route("user/{username}/top")]
@@ -170,18 +177,19 @@ namespace Musicollage.Controllers
             List<DisplayRating> list = new List<DisplayRating>();
             List<Rating> allRatings = _context.Ratings.Where(r => r.user_id == user_id).OrderByDescending(r => r.rating).ToList();
             List<Release> releases = _context.Releases.ToList();
-            for(int i = 0; list.Count < num; i++)
+            if(period != null)
+            {
+                allRatings = allRatings.Where(r => {
+                    Release ratedRelease = releases.SingleOrDefault(re => re.id == r.release_id);
+                    if(ratedRelease.date.Substring(0, 3) == period.Substring(0, 3)) return true;
+                    return false;
+                }).ToList();
+            }
+            for(int i = 0; i < allRatings.Count && i < num; i++)
             {
                 try
                 {
                     Release thisRelease = releases.Single(r => r.id == allRatings[i].release_id);
-                    if(period != null)
-                    {
-                        if(thisRelease.date.Substring(0, 3) != period.Substring(0, 3))
-                        {
-                            continue;
-                        }
-                    }
                     DisplayRating newDisplay = new DisplayRating()
                     {
                         title = thisRelease.title,
@@ -196,7 +204,7 @@ namespace Musicollage.Controllers
                         ApiCaller.GetArt(thisRelease.id_string, a => {
                             art = (JObject)a;
                         }).Wait();
-                        newDisplay.image = (string)art.SelectToken("images").First.SelectToken("image");
+                        newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
                     } catch { System.Console.WriteLine("No image available."); }
                     list.Add(newDisplay);
                 }

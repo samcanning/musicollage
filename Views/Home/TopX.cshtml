@@ -24,9 +24,11 @@ else
 }
 @foreach(var x in Model)
 {
-    <img src='@x.image' width='@imgWidth'>
+    <a href="/release/@x.release_id_string"><img src='@x.image' width='@imgWidth' height="@imgWidth"></a>
 }
 @if(Model.Count < ViewBag.num)
 {
     <p>@ViewBag.name has not rated enough albums!</p>
 }
+<br><br>
+@Html.Partial("Partials/GetTopX.cshtml")

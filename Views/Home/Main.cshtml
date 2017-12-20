@@ -1,15 +1,16 @@
 @model List<Musicollage.Models.DisplayRating>
 <h3>Welcome, @ViewBag.name</h3>
 <p>View your top albums</p>
-<form action='/user/@ViewBag.name/top' method="get">
-    Top <input type='number' step='1' min='1' max='100' name="num"> albums of (optional)
-    <select id='periodselect' name='from'>
-        <option selected value=""></option>
-        <option value='1960s'>60s</option>
-        <option value='1970s'>70s</option>
-        <option value='1980s'>80s</option>
-        <option value='1990s'>90s</option>
-        <option value='2000s'>00s</option>
-        <option value='2010s'>10s</option>
-    </select> <input type='submit'>
-</form>
+@Html.Partial("Partials/GetTopX.cshtml")
+<h4>Most recent ratings by other users:</h4>
+<div id="recentratings">
+@foreach(var x in Model)
+{
+    <div class="recentrating">
+    <a href="/release/@x.release_id_string"><img src="@x.image" width='150' height='150'></a>
+    <p><a href='/artist/@x.artist_id_string'>@x.artist</a></p>
+    <p><a href='/release/@x.release_id_string'>@x.title</a></p>
+    <p>@x.rating/10 by <a href='/user/@x.rater'>@x.rater</a></p>
+    </div>
+}
+</div>
