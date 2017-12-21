@@ -1,4 +1,7 @@
 @model List<Musicollage.Models.DisplayRating>
+@{
+    ViewData["Title"] = "Home";
+}
 <h3>Welcome, @ViewBag.name</h3>
 <p>View your top albums</p>
 @Html.Partial("Partials/GetTopX.cshtml")
@@ -7,7 +10,14 @@
 @foreach(var x in Model)
 {
     <div class="recentrating">
-    <a href="/release/@x.release_id_string"><img src="@x.image" width='150' height='150'></a>
+    @if(x.image == "Not found")
+    {
+        <a href="/release/@x.release_id_string"><img src="~/images/noimage.png" width='150' height='150' alt="@x.artist - @x.title"></a>
+    }
+    else
+    {
+        <a href="/release/@x.release_id_string"><img src="@x.image" width='150' height='150' alt="@x.artist - @x.title"></a>
+    }
     <p><a href='/artist/@x.artist_id_string'>@x.artist</a></p>
     <p><a href='/release/@x.release_id_string'>@x.title</a></p>
     <p>@x.rating/10 by <a href='/user/@x.rater'>@x.rater</a></p>

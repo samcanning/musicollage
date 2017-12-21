@@ -30,7 +30,7 @@ namespace Musicollage.Controllers
             int user_id = (int)HttpContext.Session.GetInt32("id");
             List<Rating> mostRecent = _context.Ratings.Where(r => r.user_id != user_id).ToList();
             List<DisplayRating> recentDisplay = new List<DisplayRating>();
-            for(int i = mostRecent.Count - 1; i > 0 && i > mostRecent.Count - 6; i--)
+            for(int i = mostRecent.Count - 1; i >= 0 && i > mostRecent.Count - 6; i--)
             {
                 Release thisRelease = _context.Releases.SingleOrDefault(r => r.id == mostRecent[i].release_id);
                 User thisRater = _context.Users.SingleOrDefault(u => u.id == mostRecent[i].user_id);
@@ -39,14 +39,18 @@ namespace Musicollage.Controllers
                     title = thisRelease.title,
                     release_id_string = thisRelease.id_string,
                     artist = thisRelease.artist,
+                    artist_id_string = thisRelease.artist_id_string,
                     rating = mostRecent[i].rating,
                     rater = thisRater.username
                 };
-                string imgString = "";
-                ApiCaller.GetArt(newDisplay.release_id_string, a => {
-                    imgString = (string)((JObject)a).SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
-                }).Wait();
-                newDisplay.image = imgString;
+                try
+                    {
+                        JObject art = new JObject();
+                        ApiCaller.GetArt(thisRelease.id_string, a => {
+                            art = (JObject)a;
+                        }).Wait();
+                        newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
+                    } catch { newDisplay.image = "Not found"; }
                 recentDisplay.Add(newDisplay);
             }
             return recentDisplay;
@@ -169,6 +173,7 @@ namespace Musicollage.Controllers
             ViewBag.num = num;
             ViewBag.period = from;
             List<DisplayRating> list = CreateList(num, thisUser.id, from);
+            ViewBag.actualNum = list.Count;
             return View(list);
         }
 
@@ -205,7 +210,7 @@ namespace Musicollage.Controllers
                             art = (JObject)a;
                         }).Wait();
                         newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
-                    } catch { System.Console.WriteLine("No image available."); }
+                    } catch { newDisplay.image = "Not found"; }
                     list.Add(newDisplay);
                 }
                 catch {}

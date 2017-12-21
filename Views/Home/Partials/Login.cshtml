@@ -1,7 +1,7 @@
 @model Musicollage.Models.LogVal
-<h2>Login</h2>
-<form asp-action="Login" asp-controller="Home" method="post">
-    Username: <input asp-for="logname"> <span asp-validation-for="logname"></span><br><br>
-    Password: <input asp-for="logpw"> <span asp-validation-for="logpw"></span><br><br>
-    <input type='submit' value='Login'>
-</form>
+<div id='login'><h2>Login</h2>
+<form role="form" asp-action="Login" asp-controller="Home" method="post">
+    Username: <input class='form-control' asp-for="logname"> <span asp-validation-for="logname"></span><br><br>
+    Password: <input class='form-control' asp-for="logpw"> <span asp-validation-for="logpw"></span><br><br>
+    <input class="btn btn-default" type='submit' value='Login'>
+</form></div>

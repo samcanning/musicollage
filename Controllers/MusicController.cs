@@ -83,11 +83,8 @@ namespace Musicollage.Controllers
                 avg_rating = -1,
                 ratings = 0
             };
-            try
-            {
-                release.image = (string)art.SelectToken("images").First.SelectToken("image");
-            }
-            catch { System.Console.WriteLine("No image available"); }
+            try { release.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small"); }
+            catch { release.image = "Not found"; }
             ViewBag.logged = false;
             string placeholder = null;
             Release thisRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);
@@ -125,14 +122,18 @@ namespace Musicollage.Controllers
                     string title = "";
                     string artist = "";
                     string date = "";
+                    string ais = "";
                     ApiCaller.GetReleaseData(id, a => {
                         title = (string)(((JObject)a).SelectToken("title"));
                         artist = (string)((JObject)a).SelectToken("artist-credit").First.SelectToken("artist").SelectToken("name");
                         date = (string)((JObject)a).SelectToken("first-release-date");
+                        ais = (string)((JObject)a).SelectToken("artist-credit").First.SelectToken("artist").SelectToken("id");
+
                     }).Wait();
                     newRelease.title = title;
                     newRelease.artist = artist;
                     newRelease.date = date;
+                    newRelease.artist_id_string = ais;
                     _context.Add(newRelease);
                     _context.SaveChanges();
                     thisRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);
@@ -165,6 +166,33 @@ namespace Musicollage.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Release", new {id = id});
+        }
+
+        [Route("top")]
+        public IActionResult TopRated()
+        {
+            List<Release> allReleases = _context.Releases.OrderByDescending(r => r.avg_rating).ToList();
+            List<DisplayRelease> topRated = new List<DisplayRelease>();
+            for(int i = 0; i < 10 && i < allReleases.Count(); i++)
+            {
+                DisplayRelease newDisplay = new DisplayRelease()
+                {
+                    id = allReleases[i].id_string,
+                    title = allReleases[i].title,
+                    artist = allReleases[i].artist,
+                    arid = allReleases[i].artist_id_string,
+                    avg_rating = allReleases[i].avg_rating,
+                    ratings = allReleases[i].ratings
+                };
+                JObject art = new JObject();
+                ApiCaller.GetArt(newDisplay.id, a => {
+                    art = (JObject)a;
+                }).Wait();
+                try { newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small"); }
+                catch { newDisplay.image = "Not found"; }
+                topRated.Add(newDisplay);
+            }
+            return View(topRated);
         }
     }
 }

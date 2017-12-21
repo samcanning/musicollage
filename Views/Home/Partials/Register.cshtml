@@ -1,8 +1,8 @@
 @model Musicollage.Models.RegVal
-<h2>Register</h2>
+<div id='register'><h2>Register</h2>
 <form asp-action="Register" asp-controller="Home" method="post">
-    Username: <input asp-for="username"> <span asp-validation-for="username"></span><br><br>
-    Password: <input asp-for="password"> <span asp-validation-for="password"></span><br><br>
-    Confirm password: <input asp-for="pwconfirm"> <span asp-validation-for="pwconfirm"></span><br><br>
-    <input type='submit' value='Register'>
-</form>
+    Username: <input class='form-control' asp-for="username"> <span asp-validation-for="username"></span><br><br>
+    Password: <input class='form-control' asp-for="password"> <span asp-validation-for="password"></span><br><br>
+    Confirm password: <input class='form-control' asp-for="pwconfirm"> <span asp-validation-for="pwconfirm"></span><br><br>
+    <input class="btn btn-default" type='submit' value='Register'>
+</form></div>

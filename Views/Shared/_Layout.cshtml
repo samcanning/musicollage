@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] - Musicollage</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -31,15 +31,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
-                    <!-- <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li> -->
                     <li><a asp-area="" asp-controller="Home" asp-action="Main">Main</a></li>
+                    <li><a asp-area="" asp-controller="Music" asp-action="TopRated">Top Rated</a></li>
                 </ul>
                 <div class="navbar-search">
                     <form action="/search">
-                        <input id='searchbox' type="text" name='name'><select name='type'>
+                        <input style="color: black" id='searchbox' type="text" name='name'><select style="color: black" name='type'>
                             <option value='artist'>Artist</option>
                             <option value='release'>Release</option>
-                        </select><input id='searchsubmit' type='submit' value='Search'>
+                        </select><input id='searchsubmit' style="color: black" type='submit' value='Search'>
                     </form>
                 </div>
             </div>

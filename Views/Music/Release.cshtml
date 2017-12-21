@@ -3,7 +3,14 @@
     ViewData["Title"] = @Model.title;
 }
 <h2><a href='/artist/@Model.arid'>@Model.artist</a> - @Model.title</h2>
-<img src='@Model.image' width=250>
+@if(Model.image == "Not found")
+{
+    <img src='~/images/noimage.png' width=250>
+}
+else
+{
+    <img src='@Model.image' width=250>
+}
 @if(@Model.avg_rating == -1)
 {
     <p style='color: gray'>Not yet rated</p>
@@ -15,6 +22,10 @@ else
 @if(ViewBag.logged)
 {
     <br><br><form action='@Model.id/rate' method="post">
-        <input placeholder="@ViewBag.placeholder" type='number' max='10' min='0' step='0.1' name='rating'> <input type='submit' value='Rate'>
+        <input placeholder="@ViewBag.placeholder" type='number' max='10' min='0' step='0.1' name='rating'> <input style="color: black" type='submit' value='Rate'>
     </form>
+}
+else
+{
+    <p><a href='/'>Log in or register</a> to rate this release</p>
 }

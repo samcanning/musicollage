@@ -1,4 +1,7 @@
 @model List<Musicollage.Models.DisplayRating>
+@{
+    ViewData["Title"] = "Top " + @ViewBag.num;
+}
 @if(ViewBag.period == null)
 {
     <h2>@ViewBag.name's top @ViewBag.num</h2>
@@ -8,23 +11,39 @@ else
     <h2>@ViewBag.name's top @ViewBag.num of @ViewBag.period</h2>
 }
 @{
-    double imgWidth = 0;
-    if(ViewBag.num < 5)
+    string imgWidth = "";
+    if(ViewBag.actualNum < 5)
     {
-        imgWidth = 250;
+        imgWidth = "20%";
     }
-    else if(ViewBag.num < 10)
+    else if(ViewBag.actualNum % 6 == 0)
     {
-        imgWidth = 200;
+        imgWidth = "15%";
+    }
+    else if(ViewBag.actualNum % 5 == 0)
+    {
+        imgWidth = "18%";
+    }
+    else if(ViewBag.actualNum % 4 == 0)
+    {
+        imgWidth = "20%";
     }
     else
     {
-        imgWidth = 150;
+        imgWidth = "15%";
     }
 }
 @foreach(var x in Model)
 {
-    <a href="/release/@x.release_id_string"><img src='@x.image' width='@imgWidth' height="@imgWidth"></a>
+    if(x.image == "Not found")
+    {
+        <a href="/release/@x.release_id_string"><img src='~/images/noimage.png' alt="@x.artist - @x.title" width='@imgWidth' height="@imgWidth"></a>
+    }
+    else
+    {
+        <a href="/release/@x.release_id_string"><img src='@x.image' alt="@x.artist - @x.title" width='@imgWidth' height="@imgWidth"></a>
+    }
+    
 }
 @if(Model.Count < ViewBag.num)
 {
