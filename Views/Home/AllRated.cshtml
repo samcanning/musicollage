@@ -1,4 +1,7 @@
 @model List<Musicollage.Models.DisplayRating>
+@{
+    ViewData["Title"] = "Your Ratings";
+}
 <h2>Your rated albums</h2>
 @foreach(var r in Model)
 {
