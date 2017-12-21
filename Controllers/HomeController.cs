@@ -225,5 +225,29 @@ namespace Musicollage.Controllers
             ViewBag.name = username;
             return View();
         }
+
+        [Route("main/rated")]
+        public IActionResult AllRated()
+        {
+            int? user_id = HttpContext.Session.GetInt32("id");
+            if(user_id == null) return RedirectToAction("Index");
+            List<DisplayRating> displayRatings = new List<DisplayRating>();
+            List<Release> allReleases = _context.Releases.ToList();
+            List<Rating> myRatings = _context.Ratings.Where(r => r.user_id == user_id).OrderByDescending(r => r.id).ToList();
+            foreach(Rating r in myRatings)
+            {
+                Release thisRelease = allReleases.SingleOrDefault(x => x.id == r.release_id);
+                DisplayRating newDisplay = new DisplayRating()
+                {
+                    title = thisRelease.title,
+                    release_id_string = thisRelease.id_string,
+                    artist = thisRelease.artist,
+                    artist_id_string = thisRelease.artist_id_string,
+                    rating = r.rating
+                };
+                displayRatings.Add(newDisplay);
+            }
+            return View(displayRatings);
+        }
     }
 }

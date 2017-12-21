@@ -5,6 +5,7 @@
 <h3>Welcome, @ViewBag.name</h3>
 <p>View your top albums</p>
 @Html.Partial("Partials/GetTopX.cshtml")
+<br><p><a href='main/rated'>All the albums you've rated so far</a></p>
 <h4>Most recent ratings by other users:</h4>
 <div id="recentratings">
 @foreach(var x in Model)

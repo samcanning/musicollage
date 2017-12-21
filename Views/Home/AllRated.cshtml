@@ -1,0 +1,6 @@
+@model List<Musicollage.Models.DisplayRating>
+<h2>Your rated albums</h2>
+@foreach(var r in Model)
+{
+    <p><a href='/artist/@r.artist_id_string'>@r.artist</a> - <a href='/release/@r.release_id_string'>@r.title</a> (@r.rating / 10)</p>
+}
