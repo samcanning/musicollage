@@ -1,9 +1,0 @@
-C:\Users\samca\Desktop\projects\Musicollage\bin\Debug\netcoreapp1.1\Musicollage.deps.json
-C:\Users\samca\Desktop\projects\Musicollage\bin\Debug\netcoreapp1.1\Musicollage.runtimeconfig.json
-C:\Users\samca\Desktop\projects\Musicollage\bin\Debug\netcoreapp1.1\Musicollage.runtimeconfig.dev.json
-C:\Users\samca\Desktop\projects\Musicollage\bin\Debug\netcoreapp1.1\Musicollage.dll
-C:\Users\samca\Desktop\projects\Musicollage\bin\Debug\netcoreapp1.1\Musicollage.pdb
-C:\Users\samca\Desktop\projects\Musicollage\obj\Debug\netcoreapp1.1\Musicollage.csproj.CoreCompileInputs.cache
-C:\Users\samca\Desktop\projects\Musicollage\obj\Debug\netcoreapp1.1\Musicollage.AssemblyInfo.cs
-C:\Users\samca\Desktop\projects\Musicollage\obj\Debug\netcoreapp1.1\Musicollage.dll
-C:\Users\samca\Desktop\projects\Musicollage\obj\Debug\netcoreapp1.1\Musicollage.pdb

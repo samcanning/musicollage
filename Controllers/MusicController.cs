@@ -65,45 +65,57 @@ namespace Musicollage.Controllers
         [Route("release/{id}")]
         public IActionResult Release(string id)
         {
-            JObject releaseJson = new JObject();
-            ApiCaller.GetReleaseData(id, r => {
-                releaseJson = (JObject)r;
-            }).Wait();
-            JObject art = new JObject();
-            ApiCaller.GetArt(id, a => {
-                art = (JObject)a;
-            }).Wait();
-            DisplayRelease release = new DisplayRelease()
+            Release existingRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);
+            DisplayRelease release = new DisplayRelease();
+            if(existingRelease != null)
             {
-                title = (string)releaseJson.SelectToken("title"),
-                date = (string)releaseJson.SelectToken("first-release-date"),
-                id = (string)releaseJson.SelectToken("id"),
-                artist = (string)releaseJson.SelectToken("artist-credit").First.SelectToken("name"),
-                arid = (string)releaseJson.SelectToken("artist-credit").First.SelectToken("artist").SelectToken("id"),
-                avg_rating = -1,
-                ratings = 0
-            };
-            try { release.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small"); }
-            catch { release.image = "Not found"; }
+                release.title = existingRelease.title;
+                release.date = existingRelease.date;
+                release.id = id;
+                release.artist = existingRelease.artist;
+                release.arid = existingRelease.artist_id_string;
+                release.avg_rating = -1;
+                release.ratings = 0;
+                release.image = existingRelease.image;
+            }
+            else
+            {
+                JObject releaseJson = new JObject();
+                ApiCaller.GetReleaseData(id, r => {
+                    releaseJson = (JObject)r;
+                }).Wait();
+                release.title = (string)releaseJson.SelectToken("title");
+                release.date = (string)releaseJson.SelectToken("first-release-date");
+                release.id = (string)releaseJson.SelectToken("id");
+                release.artist = (string)releaseJson.SelectToken("artist-credit").First.SelectToken("name");
+                release.arid = (string)releaseJson.SelectToken("artist-credit").First.SelectToken("artist").SelectToken("id");
+                release.avg_rating = -1;
+                release.ratings = 0;
+                JObject art = new JObject();
+                ApiCaller.GetArt(id, a => {
+                    art = (JObject)a;
+                }).Wait();            
+                try { release.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small"); }
+                catch { release.image = "Not found"; }
+            }
             ViewBag.logged = false;
             string placeholder = null;
-            Release thisRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);
             if(HttpContext.Session.GetInt32("id") != null)
             {
                 placeholder = "0 to 10";
                 ViewBag.logged = true;
                 int? release_id = null;
-                if(thisRelease != null) release_id = thisRelease.id;
+                if(existingRelease != null) release_id = existingRelease.id;
                 if(release_id != null)
                 {
                     Rating thisRating = _context.Ratings.Where(r => r.user_id == HttpContext.Session.GetInt32("id")).SingleOrDefault(r => r.release_id == release_id);
                     if(thisRating != null) placeholder = thisRating.rating.ToString();
                 }   
             }
-            if(thisRelease != null)
+            if(existingRelease != null)
             {
-                release.avg_rating = thisRelease.avg_rating;
-                release.ratings = thisRelease.ratings;
+                release.avg_rating = existingRelease.avg_rating;
+                release.ratings = existingRelease.ratings;
             }
             ViewBag.placeholder = placeholder;
             return View(release);
@@ -134,6 +146,12 @@ namespace Musicollage.Controllers
                     newRelease.artist = artist;
                     newRelease.date = date;
                     newRelease.artist_id_string = ais;
+                    JObject art = new JObject();
+                    ApiCaller.GetArt(id, a => {
+                        art = (JObject)a;
+                    }).Wait();
+                    try { newRelease.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("large"); }
+                    catch { newRelease.image = "Not found"; }
                     _context.Add(newRelease);
                     _context.SaveChanges();
                     thisRelease = _context.Releases.SingleOrDefault(r => r.id_string == id);
@@ -182,14 +200,9 @@ namespace Musicollage.Controllers
                     artist = allReleases[i].artist,
                     arid = allReleases[i].artist_id_string,
                     avg_rating = allReleases[i].avg_rating,
-                    ratings = allReleases[i].ratings
+                    ratings = allReleases[i].ratings,
+                    image = allReleases[i].image
                 };
-                JObject art = new JObject();
-                ApiCaller.GetArt(newDisplay.id, a => {
-                    art = (JObject)a;
-                }).Wait();
-                try { newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small"); }
-                catch { newDisplay.image = "Not found"; }
                 topRated.Add(newDisplay);
             }
             return View(topRated);

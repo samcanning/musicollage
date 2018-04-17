@@ -10,5 +10,6 @@ namespace Musicollage.Models
         public string artist {get;set;}
         public string artist_id_string {get;set;}
         public string date {get;set;}
+        public string image {get;set;}
     }
 }

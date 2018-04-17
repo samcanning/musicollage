@@ -22,6 +22,7 @@ namespace Musicollage.Controllers
         }
         public IActionResult Index()
         {
+            if(HttpContext.Session.GetString("id") != null) return RedirectToAction("Main");
             return View();
         }
 
@@ -41,16 +42,9 @@ namespace Musicollage.Controllers
                     artist = thisRelease.artist,
                     artist_id_string = thisRelease.artist_id_string,
                     rating = mostRecent[i].rating,
-                    rater = thisRater.username
+                    rater = thisRater.username,
+                    image = thisRelease.image
                 };
-                try
-                    {
-                        JObject art = new JObject();
-                        ApiCaller.GetArt(thisRelease.id_string, a => {
-                            art = (JObject)a;
-                        }).Wait();
-                        newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
-                    } catch { newDisplay.image = "Not found"; }
                 recentDisplay.Add(newDisplay);
             }
             return recentDisplay;
@@ -72,8 +66,6 @@ namespace Musicollage.Controllers
                 User newUser = new User()
                 {
                     username = model.username,
-                    created_at = DateTime.Now,
-                    updated_at = DateTime.Now
                 };
                 newUser.password = hasher.HashPassword(newUser, model.password);
                 _context.Add(newUser);
@@ -201,16 +193,9 @@ namespace Musicollage.Controllers
                         release_id_string = thisRelease.id_string,
                         artist = thisRelease.artist,
                         rating = allRatings[i].rating,
-                        release_date = thisRelease.date
+                        release_date = thisRelease.date,
+                        image = thisRelease.image
                     };
-                    try
-                    {
-                        JObject art = new JObject();
-                        ApiCaller.GetArt(thisRelease.id_string, a => {
-                            art = (JObject)a;
-                        }).Wait();
-                        newDisplay.image = (string)art.SelectToken("images").First.SelectToken("thumbnails").SelectToken("small");
-                    } catch { newDisplay.image = "Not found"; }
                     list.Add(newDisplay);
                 }
                 catch {}
