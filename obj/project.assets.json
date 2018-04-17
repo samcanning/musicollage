@@ -12853,11 +12853,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\samca\\Desktop\\coding\\C#\\musicollage\\musicollage.csproj",
+      "projectUniqueName": "C:\\Users\\samca\\Desktop\\coding\\C#\\musicollagecopy\\musicollage\\musicollage.csproj",
       "projectName": "musicollage",
-      "projectPath": "C:\\Users\\samca\\Desktop\\coding\\C#\\musicollage\\musicollage.csproj",
+      "projectPath": "C:\\Users\\samca\\Desktop\\coding\\C#\\musicollagecopy\\musicollage\\musicollage.csproj",
       "packagesPath": "C:\\Users\\samca\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\samca\\Desktop\\coding\\C#\\musicollage\\obj\\",
+      "outputPath": "C:\\Users\\samca\\Desktop\\coding\\C#\\musicollagecopy\\musicollage\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

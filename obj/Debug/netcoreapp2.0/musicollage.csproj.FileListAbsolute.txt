@@ -9,3 +9,14 @@ C:\Users\samca\Desktop\coding\C#\musicollage\obj\Debug\netcoreapp2.0\musicollage
 C:\Users\samca\Desktop\coding\C#\musicollage\obj\Debug\netcoreapp2.0\musicollage.AssemblyInfo.cs
 C:\Users\samca\Desktop\coding\C#\musicollage\obj\Debug\netcoreapp2.0\musicollage.dll
 C:\Users\samca\Desktop\coding\C#\musicollage\obj\Debug\netcoreapp2.0\musicollage.pdb
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\bin\Debug\netcoreapp2.0\musicollage.deps.json
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\bin\Debug\netcoreapp2.0\musicollage.runtimeconfig.json
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\bin\Debug\netcoreapp2.0\musicollage.runtimeconfig.dev.json
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\bin\Debug\netcoreapp2.0\musicollage.dll
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\bin\Debug\netcoreapp2.0\musicollage.pdb
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\obj\Debug\netcoreapp2.0\musicollage.csprojResolveAssemblyReference.cache
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\obj\Debug\netcoreapp2.0\musicollage.csproj.CoreCompileInputs.cache
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\obj\Debug\netcoreapp2.0\musicollage.AssemblyInfoInputs.cache
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\obj\Debug\netcoreapp2.0\musicollage.AssemblyInfo.cs
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\obj\Debug\netcoreapp2.0\musicollage.dll
+C:\Users\samca\Desktop\coding\C#\musicollagecopy\musicollage\obj\Debug\netcoreapp2.0\musicollage.pdb
